@@ -18,7 +18,8 @@ import plotly.figure_factory as ff
 
 external_stylesheets = [dbc.themes.LUX]
 
-app = Dash(__name__, external_stylesheets=external_stylesheets)
+dash_app = Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash_app.server
 
 # Initialize the application by loading data set and getting prediction for all client from the API
 df = pd.read_csv('./Data/export_datav3.csv')
@@ -111,7 +112,7 @@ gauge = daq.Gauge(
     size = 300)
 
 # Layout for main page
-app.layout = html.Div([
+dash_app.layout = html.Div([
     # First part for selecting client and quick overview
     dbc.Container([
         dbc.Row([
@@ -188,7 +189,7 @@ app.layout = html.Div([
 
 # CallBack for part "Client Overview"
 # Update information inside card for the client
-@app.callback(
+@dash_app.callback(
     Output('image-card','src'),
     Output('card-title-init','children'),
     Output('card-text-init','children'),
@@ -318,7 +319,7 @@ def create_card(client):
 
 # Callback for univariate analysis
 ## Update the list of features available in the univariate analysis section
-@app.callback(
+@dash_app.callback(
     Output("select-feature-x-uni","options"),
     Output("select-feature-x-uni","value"),
     Input("our-boolean-switch","on"),
@@ -337,7 +338,7 @@ def update_list_univariate(switch,client):
     return(options, options[0])
 
 ## Update the figure according to the feature selected in the univariate section
-@app.callback(
+@dash_app.callback(
     Output("univariate","figure"),
     Output("uni-desc-cat","children"),
     Input("select-client","value"),
@@ -374,7 +375,7 @@ def update_graph_univariate(client,feature):
 
 
 # Update list for x-axis and y-axis features
-@app.callback(
+@dash_app.callback(
     Output("select-feature-x","options"),
     Output("select-feature-x","value"),
     Output("select-feature-y","options"),
@@ -395,7 +396,7 @@ def update_xy_feature(switch,client):
     return(options, options[0],options, options[0])
 
 # Update graphics according to features selected
-@app.callback(
+@dash_app.callback(
     Output('graph-feature','figure'),
     Input('select-feature-x','value'),
     Input('select-feature-y','value')
@@ -412,4 +413,4 @@ def update_figure(feature_x,feature_y):
     return fig
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    dash_app.run_server(debug=True)
