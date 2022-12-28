@@ -19,7 +19,7 @@ import plotly.figure_factory as ff
 external_stylesheets = [dbc.themes.LUX]
 
 app = Dash(__name__, external_stylesheets=external_stylesheets)
-#app = dash_app.server
+#application = app.server
 
 # Initialize the application by loading data set and getting prediction for all client from the API
 df = pd.read_csv('./Data/export_datav3.csv')
@@ -413,4 +413,4 @@ def update_figure(feature_x,feature_y):
     return fig
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run_server(debug=True)
