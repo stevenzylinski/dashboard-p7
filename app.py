@@ -412,4 +412,4 @@ def update_figure(feature_x,feature_y):
     return fig
 
 if __name__ == '__main__':
-    dash_app.run_server(debug=True)
+    app.run(debug=True)
