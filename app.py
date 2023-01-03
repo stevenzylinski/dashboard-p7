@@ -15,10 +15,10 @@ import numpy as np
 import dash_daq as daq
 import shap
 import plotly.figure_factory as ff
-import flask
-app = flask.Flask(__name__)
+
 external_stylesheets = [dbc.themes.LUX]
-dash_app = Dash(__name__, server = app,external_stylesheets=external_stylesheets)
+dash_app = Dash(__name__,external_stylesheets=external_stylesheets)
+app = dash_app.server
 
 # Initialize the application by loading data set and getting prediction for all client from the API
 df = pd.read_csv('./Data/export_datav3.csv')
@@ -412,4 +412,4 @@ def update_figure(feature_x,feature_y):
     return fig
 
 if __name__ == '__main__':
-    dash_app.run_server(debug=True)
+    dash_app.run_server(debug=True, host='0.0.0.0', port=8000)
