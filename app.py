@@ -18,8 +18,7 @@ import plotly.figure_factory as ff
 import flask
 
 external_stylesheets = [dbc.themes.LUX]
-server = flask.Flask(__name__)
-app = Dash(__name__, external_stylesheets=external_stylesheets, server = server)
+app = Dash(__name__, external_stylesheets=external_stylesheets)
 # Initialize the application by loading data set and getting prediction for all client from the API
 df = pd.read_csv('./Data/export_datav3.csv')
 object_columns = df.select_dtypes('object').columns.to_list()
