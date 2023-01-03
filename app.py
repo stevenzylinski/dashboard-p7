@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from pydoc import classname
-from turtle import color
+#from turtle import color
 from dash import Dash, dcc, html
 from dash.dependencies import Input, Output, State
 import dash
@@ -14,7 +14,7 @@ import requests, json
 import numpy as np
 import dash_daq as daq
 import shap
-import plotly.figure_factory as ff
+#import plotly.figure_factory as ff
 
 external_stylesheets = [dbc.themes.LUX]
 dash_app = Dash(__name__,external_stylesheets=external_stylesheets)
@@ -412,4 +412,4 @@ def update_figure(feature_x,feature_y):
     return fig
 
 if __name__ == '__main__':
-    dash_app.run_server(debug=True, host='0.0.0.0', port=8000)
+    dash_app.run_server(debug=True)
