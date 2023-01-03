@@ -16,10 +16,10 @@ import dash_daq as daq
 import shap
 import plotly.figure_factory as ff
 import flask
-
+app = flask.Flask(__name__)
 external_stylesheets = [dbc.themes.LUX]
-dash_app = Dash(__name__, external_stylesheets=external_stylesheets)
-app = dash_app.server
+dash_app = Dash(__name__, server = app,external_stylesheets=external_stylesheets)
+
 # Initialize the application by loading data set and getting prediction for all client from the API
 df = pd.read_csv('./Data/export_datav3.csv')
 object_columns = df.select_dtypes('object').columns.to_list()
