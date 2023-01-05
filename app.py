@@ -406,9 +406,9 @@ def update_figure(feature_x,feature_y):
         heatmap = df.groupby([feature_x])[feature_y].value_counts().sort_index().unstack(1)
         fig = px.imshow(heatmap, text_auto=True, aspect="auto")
     elif (df[feature_x].dtypes != 'object') and (df[feature_y].dtypes!='object'):
-        fig = px.scatter(x = df[feature_x],y = df[feature_y],color = df['Target'])
+        fig = px.scatter(x = df[feature_x],y = df[feature_y],color = df['Target'],color_discrete_sequence=['#BB394E','#39BB66'])
     else:
-        fig = px.box(x = df[feature_x],y = df[feature_y],color = df['Target'])
+        fig = px.box(x = df[feature_x],y = df[feature_y],color = df['Target'],color_discrete_sequence=['#BB394E','#39BB66'])
     return fig
 
 if __name__ == '__main__':
