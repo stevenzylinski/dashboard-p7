@@ -368,11 +368,8 @@ def update_graph_univariate(client,feature):
             color_use = '#BB394E'
         else:
             color_use = '#39BB66'
-        if str(dff.loc[client,feature]) == 'nan':
-            child = ''
-        else:
-            fig.add_vline(x=dff.loc[client,feature], line_width=3, line_dash="dash", line_color=color_use)
-            child = ''
+        fig.add_vline(x=dff.loc[client,feature], line_width=3, line_dash="dash", line_color=color_use)
+        child = ''
     return(fig,child)
 
 
@@ -415,10 +412,8 @@ def update_figure(client,feature_x,feature_y):
             color_use = '#BB394E'
         else:
             color_use = '#39BB66'
-        if str(df.loc[client,feature_x]) != 'nan':
-            fig.add_vline(x=df.loc[client,feature_x], line_width=3, line_dash="dash", line_color=color_use)
-        if str(df.loc[client,feature_y]) != 'nan':
-            fig.add_hline(y=df.loc[client,feature_y], line_width=3, line_dash="dash", line_color=color_use)
+        fig.add_vline(x=df.loc[client,feature_x], line_width=3, line_dash="dash", line_color=color_use)
+        fig.add_hline(y=df.loc[client,feature_y], line_width=3, line_dash="dash", line_color=color_use)
 
     else:
         fig = px.box(x = df[feature_x],y = df[feature_y],color = df['Target'],color_discrete_sequence=['#BB394E','#39BB66'])
