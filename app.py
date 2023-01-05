@@ -408,23 +408,23 @@ def update_figure(client,feature_x,feature_y):
         fig = px.imshow(heatmap, text_auto=True, aspect="auto")
     elif (df[feature_x].dtypes != 'object') and (df[feature_y].dtypes!='object'):
         fig = px.scatter(x = df[feature_x],y = df[feature_y],color = df['Target'],color_discrete_sequence=['#BB394E','#39BB66'])
-        if df.loc[client,'Target'] == 'Not Safe':
-            color_use = '#BB394E'
-        else:
-            color_use = '#39BB66'
-        fig.add_vline(x=df.loc[client,feature_x], line_width=3, line_dash="dash", line_color=color_use)
-        fig.add_hline(y=df.loc[client,feature_y], line_width=3, line_dash="dash", line_color=color_use)
+        #if df.loc[client,'Target'] == 'Not Safe':
+         #   color_use = '#BB394E'
+        #else:
+         #   color_use = '#39BB66'
+        #fig.add_vline(x=df.loc[client,feature_x], line_width=3, line_dash="dash", line_color=color_use)
+        #fig.add_hline(y=df.loc[client,feature_y], line_width=3, line_dash="dash", line_color=color_use)
 
     else:
         fig = px.box(x = df[feature_x],y = df[feature_y],color = df['Target'],color_discrete_sequence=['#BB394E','#39BB66'])
-        if df.loc[client,'Target'] == 'Not Safe':
-            color_use = '#BB394E'
-        else:
-            color_use = '#39BB66'
-        if df[feature_x].dtypes != 'object':
-            fig.add_vline(x=df.loc[client,feature_x], line_width=3, line_dash="dash", line_color=color_use)
-        else:
-            fig.add_hline(y=df.loc[client,feature_y], line_width=3, line_dash="dash", line_color=color_use)
+        #if df.loc[client,'Target'] == 'Not Safe':
+         #   color_use = '#BB394E'
+        #else:
+         #   color_use = '#39BB66'
+        #if (df[feature_x].dtypes != 'object'):
+         #   fig.add_vline(x=df.loc[client,feature_x], line_width=3, line_dash="dash", line_color=color_use)
+        #else:
+         #   fig.add_hline(y=df.loc[client,feature_y], line_width=3, line_dash="dash", line_color=color_use)
     return fig
 
 if __name__ == '__main__':
