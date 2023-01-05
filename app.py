@@ -368,7 +368,7 @@ def update_graph_univariate(client,feature):
             color_use = '#BB394E'
         else:
             color_use = '#39BB66'
-        if str(dff.loc[client,feature])=='nan':
+        if str(dff.loc[client,feature]) == 'nan':
             child = ''
         else:
             fig.add_vline(x=dff.loc[client,feature], line_width=3, line_dash="dash", line_color=color_use)
