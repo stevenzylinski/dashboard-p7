@@ -2,9 +2,7 @@
 from pydoc import classname
 #from turtle import color
 from dash import Dash, dcc, html
-from dash.dependencies import Input, Output, State
-import dash
-from dash import dash_table
+from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
 import plotly.express as px
@@ -426,10 +424,10 @@ def update_figure(client,feature_x,feature_y):
             color_use = '#BB394E'
         else:
             color_use = '#39BB66'
-        if df[feature_x].dtypes != 'object':
-            fig.add_vline(x=df.loc[client,feature_x], line_width=3, line_dash="dash", line_color=color_use)
-        else:
+        if df[feature_x].dtypes == 'object':
             fig.add_hline(y=df.loc[client,feature_y], line_width=3, line_dash="dash", line_color=color_use)
+        else:
+            fig.add_vline(x=df.loc[client,feature_x], line_width=3, line_dash="dash", line_color=color_use)
     return fig
 
 if __name__ == '__main__':
