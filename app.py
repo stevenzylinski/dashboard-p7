@@ -101,7 +101,7 @@ card_sit = dbc.Card([
     id = "card-sit")
 
 gauge = daq.Gauge(
-    color={"gradient":True,"ranges":{"green":[0,threshold*0.6*100],"yellow":[threshold*0.6*100,threshold*70],"red":[threshold*70,100]}},
+    color={"gradient":True,"ranges":{"green":[0,threshold*0.6*100],"yellow":[threshold*0.6*100,threshold*0.7*100],"red":[threshold*0.7*100,100]}},
     label='Default\'s probability',
     showCurrentValue=True,
     units="%",
@@ -368,8 +368,11 @@ def update_graph_univariate(client,feature):
             color_use = '#BB394E'
         else:
             color_use = '#39BB66'
-        fig.add_vline(x=dff.loc[client,feature], line_width=3, line_dash="dash", line_color=color_use)
-        child = ''
+        if str(dff.loc[client,feature]) == 'nan':
+            child = ''
+        else:
+            fig.add_vline(x=dff.loc[client,feature], line_width=3, line_dash="dash", line_color=color_use)
+            child = ''
     return(fig,child)
 
 
@@ -397,18 +400,36 @@ def update_xy_feature(switch,client):
 # Update graphics according to features selected
 @dash_app.callback(
     Output('graph-feature','figure'),
+    Input("select-client","value"),
     Input('select-feature-x','value'),
     Input('select-feature-y','value')
     )
-def update_figure(feature_x,feature_y):
+def update_figure(client,feature_x,feature_y):
 
     if (df[feature_x].dtypes == 'object') and (df[feature_y].dtypes=='object'):
         heatmap = df.groupby([feature_x])[feature_y].value_counts().sort_index().unstack(1)
         fig = px.imshow(heatmap, text_auto=True, aspect="auto")
     elif (df[feature_x].dtypes != 'object') and (df[feature_y].dtypes!='object'):
         fig = px.scatter(x = df[feature_x],y = df[feature_y],color = df['Target'],color_discrete_sequence=['#BB394E','#39BB66'])
+        if df.loc[client,'Target'] == 'Not Safe':
+            color_use = '#BB394E'
+        else:
+            color_use = '#39BB66'
+        if str(df.loc[client,feature_x]) != 'nan':
+            fig.add_vline(x=df.loc[client,feature_x], line_width=3, line_dash="dash", line_color=color_use)
+        if str(df.loc[client,feature_y]) != 'nan':
+            fig.add_hline(y=df.loc[client,feature_y], line_width=3, line_dash="dash", line_color=color_use)
+
     else:
-        fig = px.box(x = df[feature_x],y = df[feature_y],color = df['Target'],color_discrete_sequence=['#BB394E','#39BB66'])
+        fig = px.box(x = df[feature_x],y = df[feature_y],color = df['Target'])
+        if df.loc[client,'Target'] == 'Not Safe':
+            color_use = '#BB394E'
+        else:
+            color_use = '#39BB66'
+        if df[feature_x].dtypes != 'object':
+            fig.add_vline(x=df.loc[client,feature_x], line_width=3, line_dash="dash", line_color=color_use)
+        else:
+            fig.add_hline(y=df.loc[client,feature_y], line_width=3, line_dash="dash", line_color=color_use)
     return fig
 
 if __name__ == '__main__':
