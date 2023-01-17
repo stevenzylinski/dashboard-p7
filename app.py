@@ -23,7 +23,7 @@ df = pd.read_csv('./Data/export_datav3.csv')
 object_columns = df.select_dtypes('object').columns.to_list()
 numeric_columns = df.select_dtypes(exclude = 'object').columns.to_list()
 df_order = df[object_columns + numeric_columns]
-threshold = 0.24489795918367344
+threshold = 0.23129251700680267
 
 # Creating request function for api returning probability of default
 def prediction_api(data_input):
